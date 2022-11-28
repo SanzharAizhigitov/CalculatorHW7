@@ -19,4 +19,10 @@
     <string name="miltiply">X</string>
     <string name="ravno">=</string>
     <string name="dot">,</string>
+    <string name="policies">Policies</string>
+    <string name="policy">Policy</string>
+    <string name="productC">Product Category</string>
+    <string name="country">Origin Country</string>
+    <string name="brand">Brand</string>
+    <string name="deleteAll">Delete All</string>
 </resources>
