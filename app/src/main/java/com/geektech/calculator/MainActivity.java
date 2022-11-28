@@ -1,34 +1,42 @@
 package com.geektech.calculator;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+    Integer first, second, result = 0;
+    TextView textView;
+    boolean isOperationClick;
+    Operetion operetion;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         textView = findViewById(R.id.text);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Intent intent = new Intent(MainActivity.this, MainActivity2.class);
+        Button button = findViewById(R.id.perexod);
         button.setOnClickListener(view -> {
-            Intent intent = new Intent(MainActivity.this, MainActivity2.class);
+            intent.putExtra("key", result.toString());
             startActivity(intent);
-            intent.putExtra("key",result);
 
         });
     }
-Button button = findViewById(R.id.perexod);
-
-    Integer first, second, result;
-    TextView textView;
-    boolean isOperationClick;
-    Operetion operetion;
-
 
     public void onNumberClick(View view) {
         switch (view.getId()) {
@@ -108,29 +116,29 @@ Button button = findViewById(R.id.perexod);
                 second = 0;
         }
         isOperationClick = false;
-        ((Button)findViewById(R.id.perexod)).setVisibility(View.GONE);
+        ((Button) findViewById(R.id.perexod)).setVisibility(View.GONE);
     }
 
     public void onOperationClick(View view) {
         switch (view.getId()) {
             case R.id.plus:
                 first = Integer.valueOf(textView.getText().toString());
-                operetion=Operetion.PLUS;
-                ((Button)findViewById(R.id.perexod)).setVisibility(View.GONE);
+                operetion = Operetion.PLUS;
+                ((Button) findViewById(R.id.perexod)).setVisibility(View.GONE);
                 break;
             case R.id.minus:
                 first = Integer.valueOf(textView.getText().toString());
-                operetion=Operetion.MINIS;
-                ((Button)findViewById(R.id.perexod)).setVisibility(View.GONE);
+                operetion = Operetion.MINIS;
+                ((Button) findViewById(R.id.perexod)).setVisibility(View.GONE);
                 break;
             case R.id.delit:
-                operetion=Operetion.DELIT;
-                ((Button)findViewById(R.id.perexod)).setVisibility(View.GONE);
+                operetion = Operetion.DELIT;
+                ((Button) findViewById(R.id.perexod)).setVisibility(View.GONE);
                 first = Integer.valueOf(textView.getText().toString());
                 break;
             case R.id.multipli:
-                operetion=Operetion.MULTIPLY;
-                ((Button)findViewById(R.id.perexod)).setVisibility(View.GONE);
+                operetion = Operetion.MULTIPLY;
+                ((Button) findViewById(R.id.perexod)).setVisibility(View.GONE);
                 first = Integer.valueOf(textView.getText().toString());
                 break;
             case R.id.ravna:
@@ -138,18 +146,16 @@ Button button = findViewById(R.id.perexod);
                     second = Integer.valueOf(textView.getText().toString());
                     result = first + second;
                     textView.setText(result.toString());
-                }
-               else if (operetion == Operetion.MINIS) {
+                } else if (operetion == Operetion.MINIS) {
                     second = Integer.valueOf(textView.getText().toString());
                     result = first - second;
                     textView.setText(result.toString());
-                }
-                else if (operetion == Operetion.DELIT) {
+                } else if (operetion == Operetion.DELIT) {
                     Toast toast = Toast.makeText(getApplicationContext(),
                             "При делении остаток удаляется", Toast.LENGTH_SHORT);
                     toast.show();
                     second = Integer.valueOf(textView.getText().toString());
-                    result = first/ second;
+                    result = first / second;
                     textView.setText(result.toString());
                 }
                 if (operetion == Operetion.MULTIPLY) {
@@ -158,7 +164,7 @@ Button button = findViewById(R.id.perexod);
                     textView.setText(result.toString());
                 }
 
-                ((Button)findViewById(R.id.perexod)).setVisibility(View.VISIBLE);
+                ((Button) findViewById(R.id.perexod)).setVisibility(View.VISIBLE);
                 break;
         }
         isOperationClick = true;
